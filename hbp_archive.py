@@ -1100,7 +1100,7 @@ class Project(object):
             raise Exception("Container named '{}' already exists!".format(container_name))
         self._connection.put_container(container_name) # doesn't return anything on success
         if public:
-            c = self.get_container(container_name)
+            c = self.get_container(container_name, full_listing = True)
             c.grant_access("PUBLIC")
         logger.info("Successfully created the container named '{}'".format(container_name))
 
@@ -1287,7 +1287,7 @@ class Archive(object):
         """
         for project in self.projects.values():
             try:
-                return project.get_container(container)
+                return project.get_container(container, full_listing=True)
             except ClientException:
                 pass
         raise ValueError(
