@@ -425,7 +425,7 @@ class Container(object):
         list
             List of `hbp_archive.File` objects existing in container.
         """
-        self._metadata, contents = self.project._connection.get_container(self.name)
+        self._metadata, contents = self.project._connection.get_container(self.name, full_listing=True)
         contents = [File(container=self, **item) for item in contents]
         if content_type:
             contents = [item for item in contents if item.content_type==content_type]
